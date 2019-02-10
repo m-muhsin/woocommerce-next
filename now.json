@@ -1,7 +1,8 @@
 {
-    "version": 2,
-    "name": "nextjs",
-    "builds": [
-        { "src": "package.json", "use": "@now/next" }
-    ]
+  "version": 2,
+  "name": "woocommerce-next",
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
+  "routes": [
+    { "src": "/products/(?<slug>[^/]+)$", "dest": "/product?slug=$slug" }
+  ]
 }

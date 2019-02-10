@@ -1,29 +1,40 @@
+import Link from "next/link";
+import styled from "styled-components";
+
+const Section = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Single = styled.div`
+  width: 300px;
+  margin: 10px;
+`;
+
+const Img = styled.img`
+  width: 280px;
+  height: 280px;
+`;
+
 const Products = ({ products }) => (
-  <section
-    style={{
-      display: "flex",
-      flexWrap: "wrap"
-    }}
-  >
+  <Section>
     {products.map(product => (
-      <div
-        key={product.id}
-        style={{
-          maxWidth: 280,
-          padding: 10
-        }}
-      >
-        <h3>{product.name}</h3>
-        <img
-          style={{
-            maxWidth: 280
-          }}
-          src={product.images[0].src}
-          alt={`${product.name} featured image`}
-        />
-      </div>
+      <Single key={product.id}>
+        <Link
+          href={`/product?slug=${product.slug}`}
+          as={`/products/${product.slug}`}
+        >
+          <a>
+            <h3>{product.name}</h3>
+            <Img
+              src={product.images[0].src}
+              alt={`${product.name} featured image`}
+            />
+          </a>
+        </Link>
+      </Single>
     ))}
-  </section>
+  </Section>
 );
 
 Products.getInitialProps = async ({ req }) => {
