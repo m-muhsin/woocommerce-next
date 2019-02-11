@@ -10,7 +10,7 @@ const Row = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  padding: 10px;
+  padding-right: 15px;
   @media (min-width: 992px) {
     width: 65%;
   }
@@ -26,6 +26,10 @@ const Description = styled.div`
   }
 `;
 
+const Price = styled.span`
+  font-size: 2em;
+`;
+
 const Product = ({ product }) => {
   {
     return product !== undefined ? (
@@ -38,9 +42,10 @@ const Product = ({ product }) => {
               alt={product.name}
             />
           </ImgContainer>
-          <Description
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          />
+          <Description>
+            <Price>$ {product.price}</Price>
+            <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          </Description>
         </Row>
       </>
     ) : (

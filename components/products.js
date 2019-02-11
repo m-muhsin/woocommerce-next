@@ -8,12 +8,20 @@ const Section = styled.section`
 
 const Single = styled.div`
   width: 300px;
-  margin: 10px;
+  margin: 1em auto;
+`;
+
+const Title = styled.h3`
+  margin: 0;
 `;
 
 const Img = styled.img`
   width: 280px;
   height: 280px;
+`;
+
+const Price = styled.div`
+  font-size: 1em;
 `;
 
 const Products = ({ products }) => (
@@ -25,11 +33,12 @@ const Products = ({ products }) => (
           as={`/products/${product.slug}`}
         >
           <a>
-            <h3>{product.name}</h3>
             <Img
               src={product.images[0].src}
               alt={`${product.name} featured image`}
             />
+            <Title>{product.name}</Title>
+            <Price>$ {product.price}</Price>
           </a>
         </Link>
       </Single>

@@ -6,16 +6,16 @@ An example app to learn Next.js with React Hooks. I'm using a WooCommerce Backen
 
 ## Progress
 
-- Lists all products in the home page
-- Routing with express for dev
-- Routing for now 2 (serverless)
+- List all products in the home page
 - Single product page
-
+- Routing with express for dev
+- Routing for now (serverless)
 
 ## TODO
 
 - Cart management
-- Pleasing design
+- Checkout
+- Payment integration
 
 ### Getting started with Next.js
 
