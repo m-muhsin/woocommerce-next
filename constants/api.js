@@ -1,11 +1,11 @@
 const WooApi = {
   url: {
-    wc: "https://woocommerce-store.on-its-way.com/wp-json/wc/v2/",
-    wp: "https://woocommerce-store.on-its-way.com/wp-json/wp/v2/"
+    wc: "https://woo.on-its-way.com/wp-json/wc/v2/",
+    wp: "https://woo.on-its-way.com/wp-json/wp/v2/"
   },
   keys: {
-    consumerKey: "ck_286be1c0fd553c4b803ba2b12c72593eb4676f8d",
-    consumerSecret: "cs_d4cc172fabaeef203a78f119518df0453753db65"
+    consumerKey: "ck_9cb4aaa5526d045084d1cc0bf6d14f5518361eab",
+    consumerSecret: "cs_a0edcc88426cf6677a5d910d976c327f7710db00"
   }
 };
 

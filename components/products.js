@@ -18,13 +18,14 @@ const Title = styled.h3`
 const Img = styled.img`
   width: 280px;
   height: 280px;
+  object-fit: cover;
 `;
 
 const Price = styled.div`
   font-size: 1em;
 `;
 
-const Products = ({ products }) => (
+const Products = ({ products = [] }) => (
   <Section>
     {products.map(product => (
       <Single key={product.id}>
@@ -52,6 +53,7 @@ Products.getInitialProps = async ({ req }) => {
       WooApi.keys.consumerKey
     }&consumer_secret=${WooApi.keys.consumerSecret}`
   );
+
   return {
     products: products.data
   };
