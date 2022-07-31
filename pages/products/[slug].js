@@ -27,11 +27,35 @@ const Description = styled.div`
   }
 `;
 
-const Price = styled.span`
+const Price = styled.div`
   font-size: 2em;
 `;
 
+const AddToCart = styled.button`
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+`;
+
 const Product = ({ product }) => {
+
+    const price = Number(product.price);
+    const regularPrice = Number(product.regular_price);
+
+    const isOnSale = price < regularPrice;
+
+    const priceRender = isOnSale ? (
+        <div>
+            <span style={{ textDecoration: 'line-through', color: 'gray' }}>${regularPrice}</span>{` `}
+            <span>${price}</span>
+        </div>
+    ) : (
+        <div>${price}</div>
+    );
+
     {
         return product !== undefined ? (
             <>
@@ -44,7 +68,9 @@ const Product = ({ product }) => {
                         />
                     </ImgContainer>
                     <Description>
-                        <Price>$ {product.price}</Price>
+                        <Price>{priceRender}</Price>
+                        <div>{product.quantity}</div>
+                        <AddToCart>Add to cart</AddToCart>
                         <div dangerouslySetInnerHTML={{ __html: product.description }} />
                     </Description>
                 </Row>

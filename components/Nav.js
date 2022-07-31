@@ -3,9 +3,6 @@ import NavStyles from "./styles/NavStyles";
 
 const Nav = () => (
   <NavStyles>
-    <Link href="/items">
-      <a>Items</a>
-    </Link>
     <Link href="/sell">
       <a>Sell</a>
     </Link>
@@ -17,6 +14,9 @@ const Nav = () => (
     </Link>
     <Link href="/me">
       <a>Account</a>
+    </Link>
+    <Link href="/cart">
+      <a>Cart</a>
     </Link>
   </NavStyles>
 );
