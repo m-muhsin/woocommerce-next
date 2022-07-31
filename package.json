@@ -7,7 +7,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "next": "12.2.2",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
