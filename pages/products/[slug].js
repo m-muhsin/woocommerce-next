@@ -40,7 +40,7 @@ const AddToCart = styled.button`
     cursor: pointer;
 `;
 
-const Product = ({ product }) => {
+const Product = ({ product = {} }) => {
 
     const price = Number(product.price);
     const regularPrice = Number(product.regular_price);
@@ -69,7 +69,6 @@ const Product = ({ product }) => {
                     </ImgContainer>
                     <Description>
                         <Price>{priceRender}</Price>
-                        <div>{product.quantity}</div>
                         <AddToCart>Add to cart</AddToCart>
                         <div dangerouslySetInnerHTML={{ __html: product.description }} />
                     </Description>
@@ -89,7 +88,7 @@ const Product = ({ product }) => {
 
 export async function getStaticProps({ params }) {
     const { slug } = params;
-    const url = `${WooApi.url.wc}products?slug=${slug}&consumer_key=${WooApi.keys.consumerKey
+    const url = `${WooApi.url.wc}products?slug=${slug}&per_page=1&_fields=id,name,description,images,price,regular_price&consumer_key=${WooApi.keys.consumerKey
         }&consumer_secret=${WooApi.keys.consumerSecret}`;
     const response = await axios.get(url);
 
