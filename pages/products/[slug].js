@@ -81,11 +81,12 @@ export async function getStaticPaths() {
     const url = `${WooApi.url.wc}products?per_page=100&_fields=slug&consumer_key=${WooApi.keys.consumerKey}&consumer_secret=${WooApi.keys.consumerSecret}`;
 
     const products = await axios.get(url);
+    const productSlugs = products.data;
 
     const pathsData = [];
 
-    !isEmpty(products) && isArray(products) &&
-        products.map((product) => {
+    !isEmpty(productSlugs) && isArray(productSlugs) &&
+        productSlugs.map((product) => {
             if (!isEmpty(product?.slug)) {
                 pathsData.push({ params: { slug: `${product?.slug}` } });
             }
@@ -93,7 +94,7 @@ export async function getStaticPaths() {
 
     return {
         paths: pathsData,
-        fallback: 'blocking'
+        fallback: true
     };
 }
 
