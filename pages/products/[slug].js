@@ -79,7 +79,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
 
     const url = `${WooApi.url.wc}products?per_page=100&_fields=slug&consumer_key=${WooApi.keys.consumerKey}&consumer_secret=${WooApi.keys.consumerSecret}`;
-console.log('url', url)
+
     const products = await axios.get(url);
 
     const pathsData = [];

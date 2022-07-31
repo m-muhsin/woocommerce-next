@@ -29,10 +29,7 @@ const Products = ({ products = [] }) => (
   <Section>
     {products.map(product => (
       <Single key={product.id}>
-        <Link
-          href={`/product?slug=${product.slug}`}
-          as={`/products/${product.slug}`}
-        >
+        <Link href={`/products/${product.slug}`}>
           <a>
             <Img
               src={product.images[0].src}
@@ -46,17 +43,5 @@ const Products = ({ products = [] }) => (
     ))}
   </Section>
 );
-
-Products.getInitialProps = async ({ req }) => {
-  const products = await axios.get(
-    `${WooApi.url.wc}products?consumer_key=${
-      WooApi.keys.consumerKey
-    }&consumer_secret=${WooApi.keys.consumerSecret}`
-  );
-
-  return {
-    products: products.data
-  };
-};
 
 export default Products;
