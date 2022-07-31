@@ -58,7 +58,7 @@ const Header = () => (
           <a href="">WooCommerce Next</a>
         </Link>
       </Logo>
-      {/* <Nav /> */}
+      <Nav />
     </div>
     {/* <div className="sub-bar">
       <p>Search</p>

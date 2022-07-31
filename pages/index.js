@@ -9,13 +9,15 @@ const IndexPage = ({ products }) => (
   </main>
 );
 
-IndexPage.getInitialProps = async () => {
+export async function getStaticProps() {
 
   const url = `${WooApi.url.wc}products?per_page=100&consumer_key=${WooApi.keys.consumerKey}&consumer_secret=${WooApi.keys.consumerSecret}`;
   const products = await axios.get(url);
 
   return {
-    products: products.data
+    props: {
+      products: products.data
+    }
   };
 };
 
