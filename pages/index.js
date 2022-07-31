@@ -10,11 +10,12 @@ const IndexPage = ({ products }) => (
 );
 
 IndexPage.getInitialProps = async () => {
-  const products = await axios.get(
-    `${WooApi.url.wc}products?per_page=100&consumer_key=${
-      WooApi.keys.consumerKey
-    }&consumer_secret=${WooApi.keys.consumerSecret}`
-  );
+  const products = await axios.get(`
+    ${WooApi.url.wc}products
+    ?per_page=100
+    &consumer_key=${WooApi.keys.consumerKey}
+    &consumer_secret=${WooApi.keys.consumerSecret}
+    `);
   return {
     products: products.data
   };
