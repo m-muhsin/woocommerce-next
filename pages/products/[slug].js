@@ -69,6 +69,7 @@ const Product = ({ product = {} }) => {
                 if (productIndex > -1) {
                     products[productIndex].quantity++;
                 } else {
+                    product.quantity = 1;
                     products.push(product);
                 }
                 cartObj.products = products;
