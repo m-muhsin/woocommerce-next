@@ -26,7 +26,7 @@ const Nav = () => {
 
   useEffect(() => {
 
-    setCartCount(cart && cart.products ? cart.products.length : 0);
+    setCartCount(cart && cart.products ? cart.products.reduce((acc, product) => product.quantity + acc, 0) : 0);
 
   }, [cart]);
 
