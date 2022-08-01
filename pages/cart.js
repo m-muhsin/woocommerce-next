@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from '../components/context/AppContext';
 
 const IndexPage = () => {
 
+	const [cart, addToCart, removeFromCart] = useContext(AppContext);
 	const [products, setProducts] = useState([]);
 	const [total, setTotal] = useState(0);
 
 	useEffect(() => {
-		const cart = localStorage.getItem('WOOCOMMERCE_NEXT_CART');
-		const cartObj = JSON.parse(cart);
-		setTotal(cartObj.products.reduce((acc, product) => acc + product.price * product.quantity, 0));
-		setProducts(cartObj.products)
+		setTotal(cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0));
+		setProducts(cart.products)
 	}, [])
-
-	const removeFromCart = (productId) => {
-		console.log('remove from cart', productId);
-		const cart = localStorage.getItem('WOOCOMMERCE_NEXT_CART');
-		const cartObj = JSON.parse(cart);
-		const productsArray = cartObj.products;
-		const productIndex = productsArray.findIndex(p => p.id === productId);
-		if (productIndex > -1) {
-			productsArray.splice(productIndex, 1);
-		}
-		cartObj.products = productsArray;
-		localStorage.setItem('WOOCOMMERCE_NEXT_CART', JSON.stringify(cartObj));
-		setTotal(cartObj.products.reduce((acc, product) => acc + product.price * product.quantity, 0));
-		setProducts(cartObj.products)
-	}
 
 	return (
 		<main>
@@ -33,7 +18,7 @@ const IndexPage = () => {
 			{products.length ? (
 				<>
 					<div>
-						{products.map(product => (
+						{cart.products.map(product => (
 							<div key={product.id}>
 								<button style={{
 									background: 'none',
@@ -41,7 +26,7 @@ const IndexPage = () => {
 									cursor: 'pointer',
 									fontSize: '20px'
 								}}
-								onClick={() => removeFromCart(product.id)}>
+									onClick={() => removeFromCart(product.id)}>
 									&times;
 								</button>
 								<div>{product.name}</div>

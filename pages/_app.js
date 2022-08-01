@@ -1,10 +1,10 @@
-import Page from '../components/Page'
+import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Page>
+    <Layout>
       <Component {...pageProps} />
-    </Page>
+    </Layout>
   )
 }
 

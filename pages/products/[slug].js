@@ -3,6 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 import { isEmpty, isArray } from 'lodash';
 import WooApi from "../../constants/api";
+import { useContext } from "react";
+import { AppContext } from "../../components/context/AppContext";
 
 const Row = styled.div`
   display: flex;
@@ -42,6 +44,7 @@ const AddToCart = styled.button`
 
 const Product = ({ product = {} }) => {
 
+    const [cart, addToCart] = useContext(AppContext);
     const price = Number(product.price);
     const regularPrice = Number(product.regular_price);
 
@@ -56,37 +59,6 @@ const Product = ({ product = {} }) => {
         <div>${price}</div>
     );
 
-    const handleAddToCart = (product) => {
-        console.log('add to cart', product);
-        const cart = localStorage.getItem('WOOCOMMERCE_NEXT_CART');
-        
-        if (cart) {
-            const cartObj = JSON.parse(cart);
-            if (cartObj.products) {
-                const products = cartObj.products;
-                const productId = product.id;
-                const productIndex = products.findIndex(p => p.id === productId);
-                if (productIndex > -1) {
-                    products[productIndex].quantity++;
-                } else {
-                    product.quantity = 1;
-                    products.push(product);
-                }
-                cartObj.products = products;
-                localStorage.setItem('WOOCOMMERCE_NEXT_CART', JSON.stringify(cartObj));
-            } else {
-                product.quantity = 1;
-                cartObj.products = [product];
-                localStorage.setItem('WOOCOMMERCE_NEXT_CART', JSON.stringify(cartObj));
-            }
-        } else {
-            product.quantity = 1;
-            const cartObj = {
-                products: [product]
-            };
-            localStorage.setItem('WOOCOMMERCE_NEXT_CART', JSON.stringify(cartObj));
-        }
-    }
 
     {
         return product !== undefined ? (
@@ -101,7 +73,7 @@ const Product = ({ product = {} }) => {
                     </ImgContainer>
                     <Description>
                         <Price>{priceRender}</Price>
-                        <AddToCart onClick={() => handleAddToCart(product)}>Add to cart</AddToCart>
+                        <AddToCart onClick={() => addToCart(product)}>Add to cart</AddToCart>
                         <div dangerouslySetInnerHTML={{ __html: product.description }} />
                     </Description>
                 </Row>

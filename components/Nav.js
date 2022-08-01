@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Link from "next/link";
 import NavStyles from "./styles/NavStyles";
 import styled from 'styled-components'
+import {AppContext} from './context/AppContext';
 
 const Badge = styled.span`
-    line-height: 16px;
+    line-height: 12px;
     background: red;
     color: white;
     border-radius: 99px;
@@ -13,18 +14,22 @@ const Badge = styled.span`
     top: 18px;
     right: 6px;
     font-size: 16px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
   `;
 
 const Nav = () => {
 
-  const [cartCount, setCartCount] = useState(0)
+  const [cart] = useContext(AppContext);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
 
-    const cart = JSON.parse(localStorage.getItem('WOOCOMMERCE_NEXT_CART'));
-
     setCartCount(cart && cart.products ? cart.products.length : 0);
-  }, []);
+
+  }, [cart]);
+
   return (
     <NavStyles>
       <Link href="/sell">
@@ -40,13 +45,10 @@ const Nav = () => {
         <a>Account</a>
       </Link>
       <Link href="/cart">
-        <>
-          <a>
-            Cart
-            {cartCount > 0 && <Badge>{cartCount}</Badge>}
-          </a>
-
-        </>
+        <a>
+          Cart
+          {cartCount > 0 && <Badge>{cartCount}</Badge>}
+        </a>
       </Link>
     </NavStyles>
   )
