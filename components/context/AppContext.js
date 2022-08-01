@@ -17,9 +17,10 @@ export const AppProvider = (props) => {
         }
     }, []);
 
-    const addToCart = (product) => {
+    const addToCart = (productParam) => {
+        const product = JSON.parse( JSON.stringify( productParam ) );
         if (cart) {
-            const cartObj = { ...cart };
+            const cartObj = JSON.parse( JSON.stringify( cart) );
             if (cartObj.products) {
                 const products = cartObj.products;
                 const productId = product.id;
@@ -50,7 +51,7 @@ export const AppProvider = (props) => {
     };
 
     const removeFromCart = (productId) => {
-        const cartObj = { ...cart };
+        const cartObj = JSON.parse( JSON.stringify( cart ) );
         const productsArray = cartObj.products;
         const productIndex = productsArray.findIndex(p => p.id === productId);
         if (productIndex > -1) {

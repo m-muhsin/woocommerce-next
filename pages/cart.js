@@ -1,21 +1,19 @@
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from '../components/context/AppContext';
 
-const IndexPage = () => {
+const CartPage = () => {
 
 	const [cart, addToCart, removeFromCart] = useContext(AppContext);
-	const [products, setProducts] = useState([]);
 	const [total, setTotal] = useState(0);
 
 	useEffect(() => {
 		setTotal(cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0));
-		setProducts(cart.products)
-	}, [])
+	}, [cart])
 
 	return (
 		<main>
 			<h1>Cart</h1>
-			{products.length ? (
+			{cart.products.length ? (
 				<>
 					<div>
 						{cart.products.map(product => (
@@ -52,4 +50,4 @@ const IndexPage = () => {
 	)
 };
 
-export default IndexPage;
+export default CartPage;

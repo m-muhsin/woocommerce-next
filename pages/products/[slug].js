@@ -40,6 +40,18 @@ const AddToCart = styled.button`
     padding: 10px 20px;
     margin: 10px 0;
     cursor: pointer;
+
+    &:hover {
+        background: #333;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        background: #000;
+    }
 `;
 
 const Product = ({ product = {} }) => {
