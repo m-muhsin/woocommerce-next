@@ -104,8 +104,8 @@ const Product = ({ product = {} }) => {
 
 export async function getStaticProps({ params }) {
     const { slug } = params;
-    const url = `${WooApi.url.wc}products?slug=${slug}&per_page=1&_fields=id,name,description,images,price,regular_price&consumer_key=${WooApi.keys.consumerKey
-        }&consumer_secret=${WooApi.keys.consumerSecret}`;
+    const url = `${WooApi.url.wc}products?slug=${slug}&per_page=1&_fields=id,name,description,images,price,regular_price&consumer_key=${process.env.WOO_KEY
+        }&consumer_secret=${process.env.WOO_SECRET}`;
     const response = await axios.get(url);
 
     return {
@@ -119,7 +119,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
 
-    const url = `${WooApi.url.wc}products?per_page=100&_fields=slug&consumer_key=${WooApi.keys.consumerKey}&consumer_secret=${WooApi.keys.consumerSecret}`;
+    const url = `${WooApi.url.wc}products?per_page=100&_fields=slug&consumer_key=${process.env.WOO_KEY}&consumer_secret=${process.env.WOO_SECRET}`;
 
     const products = await axios.get(url);
     const productSlugs = products.data;

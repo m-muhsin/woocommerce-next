@@ -11,7 +11,7 @@ const IndexPage = ({ products }) => (
 
 export async function getStaticProps() {
 
-  const url = `${WooApi.url.wc}products?per_page=100&consumer_key=${WooApi.keys.consumerKey}&consumer_secret=${WooApi.keys.consumerSecret}`;
+  const url = `${WooApi.url.wc}products?per_page=100&consumer_key=${process.env.WOO_KEY}&consumer_secret=${process.env.WOO_SECRET}`;
   const products = await axios.get(url);
 
   return {
