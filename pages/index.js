@@ -1,7 +1,12 @@
-import axios from "axios";
-
-import WooApi from "../constants/api";
 import Products from "../components/products";
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+
+const api = new WooCommerceRestApi({
+  url: process.env.WOO_URL,
+  consumerKey: process.env.WOO_KEY,
+  consumerSecret: process.env.WOO_SECRET,
+  version: "wc/v3"
+});
 
 const IndexPage = ({ products }) => (
   <main>
@@ -11,8 +16,12 @@ const IndexPage = ({ products }) => (
 
 export async function getStaticProps() {
 
-  const url = `${WooApi.url.wc}products?per_page=100&consumer_key=${process.env.WOO_KEY}&consumer_secret=${process.env.WOO_SECRET}`;
-  const products = await axios.get(url);
+  const products = await api.get("products",
+    {
+      per_page: 100,
+      fields: ["id", "name", "slug", "images", "price", "regular_price"]
+    }
+  )
 
   return {
     props: {

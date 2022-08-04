@@ -1,10 +1,16 @@
 import Link from "next/link";
-import axios from "axios";
 import styled from "styled-components";
 import { isEmpty, isArray } from 'lodash';
-import WooApi from "../../constants/api";
 import { useContext } from "react";
 import { AppContext } from "../../components/context/AppContext";
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+
+const api = new WooCommerceRestApi({
+    url: process.env.WOO_URL,
+    consumerKey: process.env.WOO_KEY,
+    consumerSecret: process.env.WOO_SECRET,
+    version: "wc/v3"
+});
 
 const Row = styled.div`
   display: flex;
@@ -104,13 +110,18 @@ const Product = ({ product = {} }) => {
 
 export async function getStaticProps({ params }) {
     const { slug } = params;
-    const url = `${WooApi.url.wc}products?slug=${slug}&per_page=1&_fields=id,name,description,images,price,regular_price&consumer_key=${process.env.WOO_KEY
-        }&consumer_secret=${process.env.WOO_SECRET}`;
-    const response = await axios.get(url);
+    const response = await api.get("products",
+        {
+            slug,
+            per_page: 100,
+            _fields: ["id", "name", "description", "images", "price", "regular_price"]
+        });
+
+    const product = response.data[0] || {};
 
     return {
         props: {
-            product: response.data[0] || {}
+            product
         },
         revalidate: 1
     };
@@ -119,9 +130,12 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
 
-    const url = `${WooApi.url.wc}products?per_page=100&_fields=slug&consumer_key=${process.env.WOO_KEY}&consumer_secret=${process.env.WOO_SECRET}`;
+    const products = await api.get("products",
+        {
+            per_page: 100,
+            _fields: "slug"
+        });
 
-    const products = await axios.get(url);
     const productSlugs = products.data;
 
     const pathsData = [];
