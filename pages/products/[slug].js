@@ -60,6 +60,11 @@ const AddToCart = styled.button`
     }
 `;
 
+const RegularPrice = styled.span`
+    text-decoration: line-through;
+    color: gray;
+`;
+
 const Product = ({ product = {} }) => {
 
     const [cart, addToCart] = useContext(AppContext);
@@ -70,7 +75,7 @@ const Product = ({ product = {} }) => {
 
     const priceRender = isOnSale ? (
         <div>
-            <span style={{ textDecoration: 'line-through', color: 'gray' }}>${regularPrice}</span>{` `}
+            <RegularPrice>${regularPrice}</RegularPrice>{` `}
             <span>${price}</span>
         </div>
     ) : (

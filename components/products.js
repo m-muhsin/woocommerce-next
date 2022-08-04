@@ -26,7 +26,8 @@ const Price = styled.div`
 `;
 
 const RegularPrice = styled.span`
-  text-decoration: line-through
+  text-decoration: line-through;
+  color: gray;
 `;
 
 const Products = ({ products = [] }) => {
